@@ -1,0 +1,27 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+\begin{document}
+\begin{circuitikz}[american voltages]
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Girişler
+    \draw (opamp.-) -- ++(0,0.5) coordinate (junction);
+    \draw (junction) to[R, l_=R1:<<R1>>, -o] ++(-2,0) node[left] {Giriş 1};
+    \draw (junction) to[R, l_=R2:<<R2>>] ++(-2,-1) node[below] {Giriş 2} to[short, -o] ++(-0.5,0);
+    
+    % Rf geri besleme
+    \draw (opamp.-) -- ++(0,1.5) to[R, l=Rf:<<Rf>>] (opamp.out |- 0,1.5) -- (opamp.out);
+    
+    % Pozitif giriş toprak
+    \draw (opamp.+) -- ++(0,-0.5) node[ground] {};
+    
+    % Çıkış
+    \draw (opamp.out) to[short, *-o] (2,0) node[right] {Çıkış};
+    
+    % Bilgi
+    \node[align=center] at (0,3) {\textbf{Toplayıcı Yükselteç}\\ 
+    Çıkış Formülü: $V_{out} = <<GainFormula>>$};
+\end{circuitikz}
+\end{document}

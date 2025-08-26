@@ -1,0 +1,23 @@
+\documentclass[border=3mm]{standalone}
+\usepackage[siunitx]{circuitikz}
+\begin{document}
+\begin{circuitikz}[american voltages]
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Input
+    \draw (opamp.-) to[R, l_=R=\SI{\R1}{\ohm}, -*] ++(-2,0) 
+          to[short, l_=$V_{in}$, -o] ++(-1,0);
+    
+    % Feedback
+    \draw (opamp.-) to[short, *-] ++(0,1.5) 
+          to[C, l_=C=\SI{\C1}{\farad}] ++(2.5,0) 
+          to[short, -*] (opamp.out);
+    
+    % Ground and output
+    \draw (opamp.+) to[short] ++(0,-0.5) node[ground] {};
+    \draw (opamp.out) to[short, l_=$V_{out}$, -o] ++(1,0);
+    
+    % Frequency label
+    \draw (opamp.center) ++(0.5,-1.5) node {$\displaystyle f_c = \frac{1}{2\pi RC} = \SI{\CutoffFreq}{\hertz}$};
+\end{circuitikz}
+\end{document}

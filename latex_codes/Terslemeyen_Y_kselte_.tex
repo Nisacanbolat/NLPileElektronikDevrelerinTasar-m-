@@ -1,0 +1,25 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+\begin{document}
+\begin{circuitikz}[american voltages]
+    % Opamp'ı merkeze yerleştir
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Giriş bağlantısı - Opamp'ın pozitif girişine
+    \draw (opamp.+) to[short, -o] (-2,0) node[left] {Giriş};
+    
+    % Negatif geri besleme devresi
+    \draw (opamp.-) -- ++(0,1) coordinate (feedback) 
+          to[R, l_=R1:10.00 kΩ] ++(-2,0) node[ground] {};
+    \draw (feedback) to[R, l=R2:90.00 kΩ] ++(2,0) -| (opamp.out);
+    
+    % Çıkış bağlantısı
+    \draw (opamp.out) to[short, *-o] (2,0) node[right] {Çıkış};
+    
+    % Başlık ve kazanç bilgisi
+    \node[align=center] at (0,3) {\textbf{Terslemeyen Yükselteç}\\ 
+    $A_v = <<GainFormula>> = <<GainValue>>$};
+\end{circuitikz}
+\end{document}

@@ -1,0 +1,38 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+\usepackage{amsmath}
+
+\begin{document}
+\begin{circuitikz}[american voltages]
+
+    % Opamp
+    \draw (0,0) node[op amp] (opamp) {};
+
+    % V1 -> R1 -> - giriş
+    \draw (opamp.-) -- ++(-0.5,0)
+          to[R, l=R1:\quad<<R1>>] ++(-2,0)
+          node[left] {$V_1$};
+
+    % V2 -> R2 -> + giriş
+    \draw (opamp.+) -- ++(-0.5,0)
+          to[R, l=R2:\quad<<R2>>] ++(-2,0)
+          node[left] {$V_2$};
+
+    % + girişten toprağa R4
+    \draw (opamp.+) -- ++(0,-1.2)
+          to[R, l=R4:\quad<<R4>>] ++(0,-1) node[ground] {};
+
+    % Geri besleme (yukarıdan sağa)
+    \draw (opamp.-) -- ++(0,1.2) coordinate (fbtop)
+          to[R, l=R3:\quad<<R3>>] ++(2,0) coordinate (fbright)
+          -- (opamp.out);
+
+    % Çıkış
+    \draw (opamp.out) to[short, *-o] ++(1.5,0) node[right] {$V_{out}$};
+
+    % Başlık ve kazanç
+    \node[align=center] at (0,3.2) {\textbf{Fark Yükselteç} \\[3pt] $A_v = \dfrac{R_3}{R_1} = <<GainValue>>$};
+
+\end{circuitikz}
+\end{document}

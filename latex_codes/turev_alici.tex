@@ -1,0 +1,25 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+\begin{document}
+\begin{circuitikz}[american voltages]
+    \draw (0,0) node[op amp] (opamp) {};
+    
+    % Giriş ve kapasitör
+    \draw (opamp.-) to[C, l_=C:<<C>>, -o] (-3,0.5) node[left] {Giriş};
+    
+    % Direnç ve geri besleme
+    \draw (opamp.-) -- ++(0,1.5) to[R, l=R:<<R>>] (opamp.out |- 0,1.5) -- (opamp.out);
+    
+    % Pozitif giriş toprak
+    \draw (opamp.+) -- ++(0,-0.5) node[ground] {};
+    
+    % Çıkış
+    \draw (opamp.out) to[short, *-o] (2,0) node[right] {Çıkış};
+    
+    % Bilgi
+    \node[align=center] at (0,3) {\textbf{Türev Alıcı Devre}\\ 
+    $V_{out} = -RC\frac{dV_{in}}{dt}$};
+\end{circuitikz}
+\end{document}

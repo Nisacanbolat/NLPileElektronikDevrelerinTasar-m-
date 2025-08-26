@@ -1,0 +1,42 @@
+\documentclass{article}
+\usepackage{circuitikz}
+\usepackage[turkish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+\title{Eviren Yükselteç Devresi}
+\author{OpAmp Devre Çizim Programı}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Eviren Yükselteç Devresi}
+
+Bu devre, giriş sinyalini evirerek (180° faz farkıyla) ve \R2/\R1 oranında yükselterek çıkışa verir.
+
+\vspace{1cm}
+\begin{center}
+\begin{circuitikz}
+    \draw (0,0) node[op amp] (opamp) {}
+          (opamp.+) -- ++(-0.5,0) node[ground] {};
+    \draw (opamp.-) -- ++(-0.5,0) 
+          to[R, l=\R1] ++(-2,0) node[left] {$V_{in}$};
+    \draw (opamp.-) -- ++(0,1.5) 
+          to[R, l=\R2] ++(3,0) -- ++(0,-1.5)
+          (opamp.out) -- ++(1,0) node[right] {$V_{out}$};
+    \draw (opamp.out) -- ++(0.5,0) -- ++(0,-0.01) -- ++(0,0.01)
+          to[short] ++(0.5,0) -- ++(0,1.5) -- ++(-3.5,0);
+\end{circuitikz}
+\end{center}
+
+\section{Devre Parametreleri}
+\begin{itemize}
+\item R1 = \R1
+\item R2 = \R2
+\item Kazanç (Av) = \Gain
+\end{itemize}
+
+\end{document}

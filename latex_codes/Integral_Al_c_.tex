@@ -1,0 +1,36 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{circuitikz}
+\usepackage{siunitx}
+
+\begin{document}
+\begin{circuitikz}[american voltages]
+
+    % Opamp yerleşimi
+    \draw (3,0) node[op amp] (opamp) {};
+
+    % X noktası
+    \coordinate (X) at (0,0);
+
+    % Giriş kaynağı → R → X
+    \draw (-3,0) to[sV, l=Giriş, invert] (-3,-2) node[ground]{};
+    \draw (-3,0) to[R, l=R:10.00 kΩ] (X);
+
+    % X → opamp.-
+    \draw (X) -- (opamp.-);
+
+    % Geri besleme C (opamp.out → yukarı → sola → X)
+    \draw (opamp.out) -- ++(0,2) 
+          to[C, l=C:100.00 μF] (0,2) -- (X);
+
+    % + giriş → toprak
+    \draw (opamp.+) -- ++(0,-1) node[ground]{};
+
+    % Çıkış
+    \draw (opamp.out) -- ++(2,0) node[right] {$V_o$};
+
+    % Başlık ve formül
+    \node[align=center] at (1.5,3.5) {\textbf{İntegral Alıcı Devresi}\\
+    $<<Formula>>$};
+
+\end{circuitikz}
+\end{document}
