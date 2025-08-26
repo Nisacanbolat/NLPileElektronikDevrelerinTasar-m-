@@ -1,1 +1,1 @@
-# NLPileElektronikDevrelerinTasar-m-
+# NLPileElektronikDevrelerinTasarimi
